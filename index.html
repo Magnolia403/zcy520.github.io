@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>520 我爱你</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffe8e8, #ffb8b8);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .heart-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff5a7a;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 192, 203, 0.3);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .container::after {
+            content: "";
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 192, 203, 0.3);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff5a7a;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .love-story {
+            margin: 30px 0;
+            background-color: rgba(255, 245, 235, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+
+        .love-story::before {
+            content: "“";
+            position: absolute;
+            top: 0;
+            left: 10px;
+            font-size: 4rem;
+            color: rgba(255, 192, 203, 0.5);
+            font-family: serif;
+        }
+
+        .love-story::after {
+            content: "”";
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            font-size: 4rem;
+            color: rgba(255, 192, 203, 0.5);
+            font-family: serif;
+        }
+        
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .photo {
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .photo:hover {
+            transform: scale(1.05);
+        }
+        
+        .gift-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background-color: #ff5a7a;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 5px 5px rgba(255, 90, 122, 0.3);
+        }
+        
+        .gift-button:hover {
+            background-color: #ff7a9a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 90, 122, 0.4);
+        }
+        
+        footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        
+        /* 礼物页面样式 */
+        .gift-container {
+            display: none; /* 初始时隐藏 */
+            max-width: 800px;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bear-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            font-size: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-animation" id="heartAnimation"></div>
+    
+    <div class="container" id="mainPage">
+        <h1>我爱你</h1>
+        
+        <p>亲爱的 仲崇玉：</p>
+        
+        <p>在这个特别的日子里，我想对你说一些藏在我心底的话。</p>
+        
+        <p>你从来都不是我的麻烦，而是我生命中最美好的礼物。每一次和你在一起的时光，都是我最珍贵的回忆。那些你认为的麻烦，其实是你让我有了机会去关心你、照顾你，让我感受到被需要的幸福。</p>
+        
+        <div class="love-story">
+            <p>记得我们第一次相遇，那时的我怎么也想不到，你竟然会成为我生命中如此重要的人。从那天起，我的世界变得不一样了。你的笑容、你的眼神、你的每一个小动作，都让我着迷。和你在一起的每一天，我都感到无比幸福和快乐。</p>
+            <p>你在我生活中带来的不是麻烦，而是无尽的快乐和温暖。那些一起度过的时光，无论是开心还是难过，都成为了我最珍贵的回忆。你让我学会了如何去爱，也让我明白了被爱的滋味。</p>
+            <p>所以，请不要自责，不要觉得你给我带来了麻烦。你给我带来的只有爱和幸福，是我生命中最美好的部分。</p>
+        </div>
+        
+        <p>在这个 520，我想告诉你，我爱你，不仅爱现在的你，也爱未来的你。无论生活会带给我们什么，我都会一直陪在你身边，不离不弃。</p>
+        
+        <p>你是我生命中最重要的人，是我永远的宝贝。</p>
+        
+        <div class="photos">
+            <img src="photo/1.jpg" alt="我们的照片" class="photo">
+            <img src="photo/2.jpg" alt="我们的照片" class="photo">
+            <img src="photo/3.jpg" alt="我们的照片" class="photo">
+            <img src="photo/4.jpg" alt="我们的照片" class="photo">
+            <img src="photo/5.jpg" alt="我们的照片" class="photo">
+            <img src="photo/6.jpg" alt="我们的照片" class="photo">
+            <img src="photo/7.jpg" alt="我们的照片" class="photo">
+            <img src="photo/8.jpg" alt="我们的照片" class="photo">
+            <img src="photo/9.jpg" alt="我们的照片" class="photo">
+            <img src="photo/10.jpg" alt="我们的照片" class="photo">
+        </div>
+        <a href="#" class="gift-button" id="giftButton">送你一份特别的礼物</a>
+        
+        <footer>
+            <p>爱你的 [你的名字]</p>
+            <p>2025 年 5 月 20 日</p>
+        </footer>
+    </div>
+    
+    <div class="gift-container" id="giftPage">
+        <h1>520 礼物</h1>
+        
+        <div class="bear-container">
+            <span>🧸</span>
+        </div>
+        
+        <p>这个小熊代表我的心。每一个爱心都是我对你的爱，永不停息，永远不变。</p>
+        <p>虽然不知道为什么，总感觉你会很喜欢小熊，所以请让我一直当你的小熊，留在你身边好好守护你</p>
+        
+        <button class="back-button" id="backButton">返回</button>
+    </div>
+    
+    <script>
+        // 创建漂浮的心形动画
+        function createHearts() {
+            const heartAnimation = document.getElementById('heartAnimation');
+            const heartCount = 50;
+            
+            // 清除之前的心形
+            heartAnimation.innerHTML = '';
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '♥';
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                heart.style.left = `${left}%`;
+                heart.style.top = `${top}%`;
+                
+                // 随机大小
+                const size = Math.random() * 1 + 0.5;
+                heart.style.fontSize = `${size}rem`;
+                
+                // 随机动画延迟
+                const delay = Math.random() * 5;
+                heart.style.animationDelay = `${delay}s`;
+                
+                heartAnimation.appendChild(heart);
+            }
+        }
+        
+        // 礼物按钮点击事件
+        document.getElementById('giftButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('giftPage').style.display = 'flex';
+        });
+        
+        // 返回按钮点击事件
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('giftPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        });
+        
+        // 页面加载完成后执行
+        window.onload = function() {
+            createHearts();
+            // 设置定时器，定期重新创建心形以保持动画效果
+            setInterval(createHearts, 10000);
+        };
+    </script>
+</body>
+</html>
